@@ -36,7 +36,7 @@ export const reviewsFetchData = (url) => {
                 return response;
             })
             .catch((err) => {
-                console.log("There is an error occurring");
+                console.log("There is an error occurring in fetch reviews action");
                 console.log(err);
                 dispatch(reviewsErrored(true))
             });
@@ -101,6 +101,7 @@ export const removeReview = (reviewName) => {
                 dispatch(removeReviewSuccess(reviewName));
             })
             .catch(err => {
+                console.log(err);
                 dispatch(addReviewFailure(err.message));
             });
     };

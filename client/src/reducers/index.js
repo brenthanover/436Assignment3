@@ -34,8 +34,8 @@ const manageReviewsReducer = (reviewList = [], action) => {
             );
         case  'REVIEWS_FETCH_SUCCESS':
             console.log("success in reducer");
-            console.log(action.reviews);
-            return action.reviews;
+            console.log(action.reviews.data);
+            return action.reviews.data;
         default:
             return reviewList;
     }

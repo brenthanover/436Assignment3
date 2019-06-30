@@ -2,6 +2,7 @@ import React from 'react';
 import '../style/CustomNavbar.css'
 import { NavLink } from 'react-router-dom'
 import ReactSymbol from './ReactSymbol'
+import MongoSymbol from './MongoSymbol'
 
 class CustomNavbar extends React.Component {
 
@@ -15,6 +16,7 @@ class CustomNavbar extends React.Component {
                     </div>
                     <div className="symbolblock">
                         <ReactSymbol/>
+                        <MongoSymbol/>
                     </div>
                 </div>
                 <ul>

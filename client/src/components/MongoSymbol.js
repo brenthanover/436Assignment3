@@ -1,7 +1,7 @@
 import React from 'react';
-import '../style/ReactSymbol.css'
+import '../style/MongoSymbol.css'
 
-class ReactSymbol extends React.Component {
+class MongoSymbol extends React.Component {
     state = {
         data: null,
     };
@@ -14,20 +14,20 @@ class ReactSymbol extends React.Component {
     }
 
     callTest = async () => {
-        const response = await fetch('/test');
+        const response = await fetch('/test_mongo');
         return await response.json();
     };
 
     render() {
-        console.log("react symbol");
+        console.log("mongo symbol");
         console.log(this.state.data);
         if (this.state.data) {
-            return <div className="react-symbol-div">
-                <img className="react-symbol" src="https://cdn-images-1.medium.com/max/1600/0*W1LxH_wVnveHqbze.png" alt=""/>
+            return <div className="mongo-symbol-div">
+                <img className="mongo-symbol" src="https://digdata.io/static/art/mongo.png" alt=""/>
             </div>
         }
         return <div><br/><br/><br/></div>
     }
 }
 
-export default ReactSymbol;
+export default MongoSymbol;

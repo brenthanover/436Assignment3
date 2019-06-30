@@ -1,15 +1,38 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
-var cors = require('cors');
+const cors = require('cors');
 
-var indexRouter = require('./index');
-var reviewsRouter = require('./reviews');
-var testRouter = require('./test');
+// server variables
+var mongoose = require('mongoose');
+var indexRouter = require('./routes');
+var reviewsRouter = require('./routes/reviews');
+var testRouter = require('./routes/test');
+var connected = false;
+
+// start up mongo
+mongoose.Promise = global.Promise;
+var mongodb = 'mongodb+srv://m001-student:m001-mongodb-basics@sandbox-obiso.mongodb.net/assignment_4?retryWrites=true&w=majority';
+var db = mongoose.connect(mongodb, (error) => {
+    if (error) {
+        console.log("error connecting to mongodb");
+        console.log(error);
+    } else {
+        console.log("successful connection to mongodb");
+        connected = true;
+    }
+});
 
 const server = express();
+
+// confirm connectivity to mongo
+server.get('/test_mongo', (req, res) => {
+    if (connected) {
+        res.send({express: 'YOUR MONGO DATABASE IS CONNECTED TO REACT'});
+    }
+});
 
 server.use(cors());
 
@@ -18,7 +41,6 @@ server.set('view engine', 'jade');
 
 server.use(express.json());
 server.use(bodyParser.urlencoded({extended: false}));
-server.use(express.urlencoded({ extended: false }));
 server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', indexRouter);
