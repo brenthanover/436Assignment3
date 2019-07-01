@@ -26,16 +26,33 @@ const reviewsErrored = (state = false, action) => {
 const manageReviewsReducer = (reviewList = [], action) => {
     switch (action.type) {
         case 'ADD_REVIEW_SUCCESS':
-            return [...reviewList, {reviewName: action.review.reviewName, reviewMessage: action.review.reviewMessage}];
+            console.log(action.review);
+            return [...reviewList, action.review];
         case  'REMOVE_REVIEW_SUCCESS':
             return reviewList.filter(
                 review => {
-                    return review.reviewName !== action.payload }
+                    return review._id !== action.payload }
             );
         case  'REVIEWS_FETCH_SUCCESS':
             console.log("success in reducer");
             console.log(action.reviews.data);
             return action.reviews.data;
+        case 'UPVOTE':
+            return reviewList.map(review => {
+                if (review._id === action.review._id) {
+                    review.rating = action.review.rating;
+                }
+                return review;
+        });
+        case 'DOWNVOTE':
+            console.log("downvoting");
+            console.log(action);
+            return reviewList.map(review => {
+                if (review._id === action.review._id) {
+                    review.rating = action.review.rating;
+                }
+                return review;
+            });
         default:
             return reviewList;
     }

@@ -1,18 +1,24 @@
 .review {
     margin: auto;
-    width: 100%;
-    padding: 5% 10px;
+    width: 80%;
+    padding: 2% 10px;
     background: #babfc6;
     text-align: left;
     border: solid 3px gray;
     border-radius: 20px;
-    font-size: 3vw;
-    font-weight: 500;
-    margin-bottom: 20px;
+    font-size: 2vw;
+    font-weight: 400;
+    margin-bottom: 10px;
 }
 
 .gridview {
     float: left;
     width: 45%;
     margin: 2.5%;
+}
+
+.rating {
+    font-size: 1.5vw;
+    padding: 10px;
+    margin-bottom: 10px;
 }

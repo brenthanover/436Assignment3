@@ -71,34 +71,36 @@ export const addReviewSuccess = (review) => {
     };
 };
 
-export const addReviewStarted = () => ({
-    type: 'ADD_REVIEW_STARTED'
-});
-
-export const addReviewFailure = error => ({
-    type: 'ADD_REVIEW_FAILURE',
-    payload: {
-        error
+export const addReviewStarted = () => {
+    return {
+        type: 'ADD_REVIEW_STARTED'
     }
-});
+};
 
-export const removeReviewSuccess = (reviewName) => {
+export const addReviewFailure = error => {
+    return {
+        type: 'ADD_REVIEW_FAILURE',
+        payload: error
+    }
+};
+
+export const removeReviewSuccess = (_id) => {
     return {
         type: 'REMOVE_REVIEW_SUCCESS',
-        payload: reviewName
+        payload: _id
     };
 };
 
-export const removeReview = (reviewName) => {
+export const removeReview = (_id) => {
     return dispatch => {
         axios
             .delete('http://localhost:5000/reviews', {
-                data: { reviewName: reviewName }
+                data: { _id: _id }
             })
             .then(res => {
                 console.log("sending action to remove");
-                console.log(reviewName);
-                dispatch(removeReviewSuccess(reviewName));
+                console.log(_id);
+                dispatch(removeReviewSuccess(_id));
             })
             .catch(err => {
                 console.log(err);
@@ -111,6 +113,69 @@ export const selectReview = (review) => {
     return {
         type: 'REVIEW_SELECTED',
         payload: review
+    };
+};
+
+export const voteFailure = (review) => {
+    return {
+        type: 'VOTE_FAILURE',
+        review: review
+    };
+};
+
+export const upvoteSuccess = (review) => {
+    return {
+        type: 'UPVOTE',
+        review: review
+    };
+};
+
+export const upvote = (review) => {
+    return dispatch => {
+        review.rating += 1;
+        dispatch(upvoteSuccess(review));
+        axios
+            .post('http://localhost:5000/reviews', {
+                type: 'UPVOTE',
+                review: review
+            })
+            .then(res => {
+                console.log("successfully upvoted");
+                dispatch(upvoteSuccess(review));
+            })
+            .catch(err => {
+                console.log("error in upvoting");
+                console.log(err);
+                dispatch(voteFailure(review));
+            });
+    };
+};
+
+export const downvoteSuccess = (review) => {
+    return {
+        type: 'DOWNVOTE',
+        review: review
+    };
+};
+
+export const downvote = (review) => {
+    return dispatch => {
+        review.rating -= 1;
+        dispatch(downvoteSuccess(review));
+        axios
+            .post('http://localhost:5000/reviews', {
+                type: 'DOWNVOTE',
+                review: review
+            })
+            .then(res => {
+                console.log("successfully downvoted");
+                dispatch(downvoteSuccess(review));
+            })
+            .catch(err => {
+                console.log("error in downvoting");
+                console.log(err);
+                dispatch(voteFailure(review));
+            });
     };
 };
 

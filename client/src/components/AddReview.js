@@ -7,12 +7,17 @@ import { addReview } from "../actions";
 class AddReview extends Component {
     constructor() {
         super();
-        this.state = {reviewName: "", reviewMessage: ""};
+        this.state = {_id: this.generateKey(), reviewName: "", reviewMessage: "", rating: 1};
         this.handleSubmit = this.handleSubmit.bind(this.state);
+    }
+
+    generateKey() {
+        return new Date().getTime();
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({ _id: this.generateKey() });
         this.props.addReview(this.state);
     };
 

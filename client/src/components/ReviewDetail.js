@@ -8,9 +8,9 @@ const ReviewDetail = ({ review }) => {
 
     return (
         <div>
-            <h3>Details for review by { review.reviewName }</h3>
+            <h3>Review by { review.reviewName }: </h3>
             <p>
-                Review: { review.reviewMessage }
+                { review.reviewMessage }
             </p>
         </div>
     );

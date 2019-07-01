@@ -19,7 +19,6 @@ router.get('/', (req, res, next) => {
             return res.json({ success: false, error: err })
         }
         console.log("success in getting data");
-        console.log(reviews);
         return res.json({ success: true, data: reviews })
     })
 });
@@ -27,24 +26,53 @@ router.get('/', (req, res, next) => {
 /* POST reviews. */
 router.post('/', (req, res, next) => {
     console.log("POSTING...");
-    console.log(req.body);
+    console.log(req.body.review);
+    console.log(req.body.type);
+    if (req.body.type == 'UPVOTE') {
+        Review.findOneAndUpdate(
+            { _id: req.body.review._id },
+            { $inc: { rating: 1 } },
+            { new: true },
+            (err, data) => {
+                if (err) {
+                    console.log("error upvoting");
+                    console.log(err);
+                }
+            }
+        );
+        return;
+    }
+    if (req.body.type == 'DOWNVOTE') {
+        Review.findOneAndUpdate(
+            { _id: req.body.review._id },
+            { $inc: { rating: -1 } },
+            { new: true },
+            (err, data) => {
+                if (err) {
+                    console.log("error upvoting");
+                    console.log(err);
+                }
+            }
+        );
+        return;
+    }
     var myData = new Review(req.body.review);
     myData.save()
         .then(item => {
-            res.send(item);
-            console.log("saved new review");
+            res.send(myData);
+            console.log("saved review");
         })
         .catch(err => {
             console.log(err);
-            console.log("unable to save new review");
+            console.log("unable to save review");
         });
 });
 
 /* DELETE review. */
 router.delete('/', (req, res, next) => {
    console.log("DELETING...");
-   console.log(req.body.reviewName);
-   Review.remove({ reviewName: req.body.reviewName }, (error, review) => {
+    console.log(req.body._id);
+   Review.deleteOne({ _id: req.body._id }, (error, review) => {
        if (error) {
            console.log(error);
            return res.json({ success: false, error });
@@ -52,16 +80,5 @@ router.delete('/', (req, res, next) => {
        return res.json({ success: true });
    });
 });
-
-/* POST MESSAGE -TYPE INTO TERMINAL
- * not quite working, formatting is slightly off. should be "review: {reviewName, message}"
- * curl -d "reviewName=a&reviewMessage=b" -X POST localhost:5000/reviews
- */
-
-/* DELETE MESSAGE -TYPE INTO TERMINAL
- *
- *curl -X POST -d "reviewName=Santa Ono" localhost:5000/reviews
- */
-
 
 module.exports = router;
