@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
     console.log("POSTING...");
     console.log(req.body.review);
     console.log(req.body.type);
-    if (req.body.type == 'UPVOTE') {
+    if (req.body.type === 'UPVOTE') {
         Review.findOneAndUpdate(
             { _id: req.body.review._id },
             { $inc: { rating: 1 } },
@@ -42,7 +42,7 @@ router.post('/', (req, res, next) => {
         );
         return;
     }
-    if (req.body.type == 'DOWNVOTE') {
+    if (req.body.type === 'DOWNVOTE') {
         Review.findOneAndUpdate(
             { _id: req.body.review._id },
             { $inc: { rating: -1 } },

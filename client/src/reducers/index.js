@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
 
-
-
 const reviewsReducer = (reviewList = [], action) => {
     if (action.type === 'REVIEWS_FETCH_SUCCESS') {
         return action.reviews;

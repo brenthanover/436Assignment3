@@ -6,6 +6,6 @@ var ReviewSchema = new Schema({
     reviewName: String,
     reviewMessage: String,
     rating: Number
-});
+}, { collection: "reviews" });
 
 module.exports = mongoose.model('Review', ReviewSchema);

@@ -50,7 +50,7 @@ export const addReview = (review) => {
         console.log(review);
 
         axios
-            .post('http://localhost:5000/reviews', {
+            .post('/reviews', {
                 review: review
             })
             .then(res => {
@@ -94,7 +94,7 @@ export const removeReviewSuccess = (_id) => {
 export const removeReview = (_id) => {
     return dispatch => {
         axios
-            .delete('http://localhost:5000/reviews', {
+            .delete('/reviews', {
                 data: { _id: _id }
             })
             .then(res => {
@@ -135,7 +135,7 @@ export const upvote = (review) => {
         review.rating += 1;
         dispatch(upvoteSuccess(review));
         axios
-            .post('http://localhost:5000/reviews', {
+            .post('/reviews', {
                 type: 'UPVOTE',
                 review: review
             })
@@ -163,7 +163,7 @@ export const downvote = (review) => {
         review.rating -= 1;
         dispatch(downvoteSuccess(review));
         axios
-            .post('http://localhost:5000/reviews', {
+            .post('/reviews', {
                 type: 'DOWNVOTE',
                 review: review
             })

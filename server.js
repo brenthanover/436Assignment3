@@ -15,7 +15,7 @@ var connected = false;
 // start up mongo
 mongoose.Promise = global.Promise;
 var mongodb = 'mongodb+srv://m001-student:m001-mongodb-basics@sandbox-obiso.mongodb.net/assignment_4?retryWrites=true&w=majority';
-var db = mongoose.connect(mongodb, (error) => {
+var db = mongoose.connect( process.env.MONGODB_URI || mongodb, (error) => {
     if (error) {
         console.log("error connecting to mongodb");
         console.log(error);
@@ -46,6 +46,14 @@ server.use(express.static(path.join(__dirname, 'public')));
 server.use('/', indexRouter);
 server.use('/reviews', reviewsRouter);
 server.use('/test', testRouter);
+
+if (process.env.NODE_ENV === 'production') {
+    server.use(express.static('client/build'));
+
+    server.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); //relative path
+    })
+}
 
 // console.log that your server is up and running
 server.listen(port, () => console.log('Listening on port ' + port));
