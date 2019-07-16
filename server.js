@@ -42,6 +42,7 @@ server.use(cors());
 server.use(express.json());
 server.use(bodyParser.urlencoded({extended: false}));
 // server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, 'client', 'build')));
 
 server.use('/', indexRouter);
 server.use('/reviews', reviewsRouter);
