@@ -36,24 +36,25 @@ server.get('/test_mongo', (req, res) => {
 
 server.use(cors());
 
-server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'jade');
+// server.set('views', path.join(__dirname, 'views'));
+// server.set('view engine', 'jade');
 
 server.use(express.json());
 server.use(bodyParser.urlencoded({extended: false}));
-server.use(express.static(path.join(__dirname, 'public')));
-
 server.use('/', indexRouter);
+
 server.use('/reviews', reviewsRouter);
 server.use('/test', testRouter);
 
-if (process.env.NODE_ENV === 'production') {
+// server.use(express.static(path.join(__dirname, 'public')));
+
+// if (process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
 
     server.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); //relative path
-    })
-}
+    });
+// }
 
 // console.log that your server is up and running
 server.listen(port, () => console.log('Listening on port ' + port));
