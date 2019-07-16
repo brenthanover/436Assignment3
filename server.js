@@ -36,8 +36,8 @@ server.get('/test_mongo', (req, res) => {
 
 server.use(cors());
 
-server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'jade');
+// server.set('views', path.join(__dirname, 'views'));
+// server.set('view engine', 'jade');
 
 server.use(express.json());
 server.use(bodyParser.urlencoded({extended: false}));
