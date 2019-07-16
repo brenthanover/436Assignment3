@@ -39,6 +39,7 @@ server.use(cors());
 // server.set('views', path.join(__dirname, 'views'));
 // server.set('view engine', 'jade');
 
+
 server.use(express.json());
 server.use(bodyParser.urlencoded({extended: false}));
 server.use('/', indexRouter);
