@@ -15,7 +15,7 @@ var connected = false;
 // start up mongo
 mongoose.Promise = global.Promise;
 var mongodb = 'mongodb+srv://m001-student:m001-mongodb-basics@sandbox-obiso.mongodb.net/assignment_4?retryWrites=true&w=majority';
-var db = mongoose.connect( process.env.MONGODB_URI || mongodb, (error) => {
+var db = mongoose.connect( mongodb || process.env.MONGODB_URI, (error) => {
     if (error) {
         console.log("error connecting to mongodb");
         console.log(error);
