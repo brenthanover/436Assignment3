@@ -36,12 +36,9 @@ server.get('/test_mongo', (req, res) => {
 
 server.use(cors());
 
-server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'jade');
-
 server.use(express.json());
 server.use(bodyParser.urlencoded({extended: false}));
-server.use('/static', express.static(path.join(__dirname, 'client/build')));
+// server.use('/static', express.static(path.join(__dirname, 'client/build')));
 
 server.use('/', indexRouter);
 server.use('/reviews', reviewsRouter);
